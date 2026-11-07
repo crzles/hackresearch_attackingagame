@@ -87,12 +87,25 @@ if "game_state" not in st.session_state:
     st.session_state.game_state = None
 
 def reset_game(puzzle):
-    groups = puzzle.groups if hasattr(puzzle, "groups") else puzzle
-    words_left = [w for group in groups for w in group["words"]]
+    # Safely extract groups whether 'puzzle' is a dictionary or custom object
+    if isinstance(puzzle, dict):
+        groups = puzzle.get("groups", [])
+    else:
+        groups = getattr(puzzle, "groups", puzzle)
+    
+    # Ensure groups is a list of dictionaries, not strings
+    words_left = []
+    for group in groups:
+        if isinstance(group, dict) and "words" in group:
+            words_left.extend(group["words"])
+        elif isinstance(group, str):
+            # Fallback if words were somehow flattened
+            words_left.append(group)
+            
     random.shuffle(words_left)
     
     st.session_state.game_state = {
-        "puzzle_id": getattr(puzzle, "id", f"Puzzle_{st.session_state.puzzle_idx}"),
+        "puzzle_id": puzzle.get("id", f"Puzzle_{st.session_state.puzzle_idx}") if isinstance(puzzle, dict) else getattr(puzzle, "id", f"Puzzle_{st.session_state.puzzle_idx}"),
         "groups": groups,
         "words_left": words_left,
         "solved_groups": [],
@@ -219,8 +232,13 @@ if st.session_state.puzzles:
                             state["past_guesses"], 
                             mistakes_left
                         )
-                        
+                        # Change this:
                         on_board = all(w in state["words_left"] for w in words)
+
+                        # To this:
+                        words_lower = [w.lower() for w in words]
+                        board_lower = [w.lower() for w in state["words_left"]]
+                        on_board = all(w in board_lower for w in words_lower)
                         already_tried = sorted(words) in state["tried"]
                         
                         if len(set(words)) == 4 and on_board and not already_tried:
