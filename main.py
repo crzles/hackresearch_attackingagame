@@ -8,6 +8,7 @@ from ai_player import ask_ai
 from game import check_guess, load_puzzles
 
 NUM_PUZZLES = 5  # how many puzzles to play (each one costs several AI calls)
+START_DATE = "2024-09-01"  # only use puzzles from this date on (the 2024 paper stopped at August 2024)
 COLORS = ["yellow", "green", "blue", "purple"]
 
 
@@ -56,7 +57,8 @@ def play(puzzle):
 
 
 def main():
-    puzzles = load_puzzles()[-NUM_PUZZLES:]
+    puzzles = load_puzzles(start_date=START_DATE)[:NUM_PUZZLES]
+    print(f"Playing {len(puzzles)} puzzles from {START_DATE} on")
     wins = 0
     total_mistakes = 0
     solved_by_color = [0, 0, 0, 0]
