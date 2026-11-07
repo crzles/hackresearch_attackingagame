@@ -1,4 +1,10 @@
-"""LLM solver: asks Claude for one group at a time and feeds back the game's response."""
+"""LLM solver: asks an LLM (Claude or OpenAI) for one group at a time and feeds back the game's response.
+
+Pick the provider in .env:
+    LLM_PROVIDER=anthropic   (uses ANTHROPIC_API_KEY)
+    LLM_PROVIDER=openai      (uses OPENAI_API_KEY)
+If LLM_PROVIDER is not set, it uses OpenAI when only OPENAI_API_KEY is set, otherwise Anthropic.
+"""
 
 from __future__ import annotations
 
@@ -7,15 +13,26 @@ import os
 import re
 from dataclasses import dataclass
 
-import anthropic
 from dotenv import load_dotenv
 
 from game import Game
 
-load_dotenv()  # reads ANTHROPIC_API_KEY (and CONNECTIONS_MODEL) from a .env file if present
+load_dotenv()  # reads keys and settings from a .env file if present
 
-MODEL = os.environ.get("CONNECTIONS_MODEL", "claude-sonnet-5-5")
+DEFAULT_MODELS = {
+    "anthropic": "claude-sonnet-5-5",
+    "openai": "gpt-6.1-terra",
+}
 MAX_INVALID_RETRIES = 2
+
+
+def _default_provider() -> str:
+    provider = os.environ.get("LLM_PROVIDER", "").strip().lower()
+    if provider:
+        return provider
+    if os.environ.get("OPENAI_API_KEY") and not os.environ.get("ANTHROPIC_API_KEY"):
+        return "openai"
+    return "anthropic"
 
 SYSTEM_PROMPT = """You are an expert player of the word game Connections.
 There are 16 words that form 4 groups of 4. Each group shares a hidden connection.
@@ -64,18 +81,53 @@ def _parse(text: str) -> dict:
 
 
 class LLMSolver:
-    def __init__(self, model: str = MODEL, client: anthropic.Anthropic | None = None):
-        self.model = model
-        self.client = client or anthropic.Anthropic()  # reads ANTHROPIC_API_KEY
+    def __init__(self, provider: str | None = None, model: str | None = None, client=None):
+        self.provider = provider or _default_provider()
+        if self.provider not in DEFAULT_MODELS:
+            raise ValueError(f"LLM_PROVIDER must be 'anthropic' or 'openai', got '{self.provider}'")
+        self.model = model or os.environ.get("CONNECTIONS_MODEL") or DEFAULT_MODELS[self.provider]
 
-    def next_guess(self, game: Game, notes: list[str]) -> dict:
+        if client is not None:
+            self.client = client
+        elif self.provider == "openai":
+            from openai import OpenAI
+
+            self.client = OpenAI()  # reads OPENAI_API_KEY
+        else:
+            import anthropic
+
+            self.client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY
+
+    def _ask(self, prompt: str) -> str:
+        """Send one prompt to the chosen provider and return the reply text."""
+        if self.provider == "openai":
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": prompt},
+                ],
+            )
+            text = response.choices[0].message.content or ""
+            if not text:
+                raise ValueError(f"No text in reply (finish reason: {response.choices[0].finish_reason})")
+            return text
+
         response = self.client.messages.create(
             model=self.model,
-            max_tokens=500,
+            max_tokens=4000,  # room for the model's thinking plus the JSON answer
             system=SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": _build_prompt(game, notes)}],
+            messages=[{"role": "user", "content": prompt}],
         )
-        return _parse(response.content[0].text)
+        # The reply can contain several blocks (e.g. a "thinking" block first);
+        # only the "text" blocks hold the answer.
+        text = "".join(b.text for b in response.content if b.type == "text")
+        if not text:
+            raise ValueError(f"No text in reply (stop reason: {response.stop_reason})")
+        return text
+
+    def next_guess(self, game: Game, notes: list[str]) -> dict:
+        return _parse(self._ask(_build_prompt(game, notes)))
 
     def play(self, game: Game, verbose: bool = True) -> list[Turn]:
         turns: list[Turn] = []
