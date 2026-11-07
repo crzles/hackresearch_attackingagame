@@ -1,254 +1,182 @@
-{
-  "sets": [
-    {
-      "id": 1,
-      "words": [
-        "Apple",
-        "Tennis",
-        "Blue",
-        "Violin",
-        "Cherry",
-        "Golf",
-        "Drum",
-        "Green",
-        "Banana",
-        "Soccer",
-        "Flute",
-        "Red",
-        "Peach",
-        "Hockey",
-        "Trumpet",
-        "Yellow"
-      ]
-    },
-    {
-      "id": 2,
-      "words": [
-        "Hammer",
-        "Eagle",
-        "Saturn",
-        "Circle",
-        "Wrench",
-        "Robin",
-        "Venus",
-        "Triangle",
-        "Drill",
-        "Falcon",
-        "Mercury",
-        "Square",
-        "Pliers",
-        "Sparrow",
-        "Neptune",
-        "Oval"
-      ]
-    },
-    {
-      "id": 3,
-      "words": [
-        "Bark",
-        "King",
-        "Salmon",
-        "Hinge",
-        "Leaf",
-        "Queen",
-        "Trout",
-        "Handle",
-        "Root",
-        "Knight",
-        "Bass",
-        "Lock",
-        "Branch",
-        "Crown",
-        "Cod",
-        "Key"
-      ]
-    },
-    {
-      "id": 4,
-      "words": [
-        "Mouse",
-        "Jazz",
-        "Shell",
-        "Winter",
-        "Monitor",
-        "Blues",
-        "Coral",
-        "Spring",
-        "Keyboard",
-        "Rock",
-        "Pearl",
-        "Summer",
-        "Printer",
-        "Country",
-        "Sand",
-        "Fall"
-      ]
-    },
-    {
-      "id": 5,
-      "words": [
-        "Bank",
-        "Pitch",
-        "Ring",
-        "Chapter",
-        "Current",
-        "Diamond",
-        "Watch",
-        "Cover",
-        "Stream",
-        "Bat",
-        "Chain",
-        "Spine",
-        "Flow",
-        "Base",
-        "Band",
-        "Page"
-      ]
-    },
-    {
-      "id": 6,
-      "words": [
-        "Light",
-        "Scale",
-        "Draft",
-        "Club",
-        "Match",
-        "Chord",
-        "Edit",
-        "Heart",
-        "Fire",
-        "Note",
-        "Revise",
-        "Spade",
-        "Spark",
-        "Key",
-        "Proof",
-        "Diamond"
-      ]
-    },
-    {
-      "id": 7,
-      "words": [
-        "Crane",
-        "Jam",
-        "Crown",
-        "Screen",
-        "Seal",
-        "Pickle",
-        "Cap",
-        "Stage",
-        "Bat",
-        "Bind",
-        "Lid",
-        "Cast",
-        "Mole",
-        "Fix",
-        "Top",
-        "Script"
-      ]
-    },
-    {
-      "id": 8,
-      "words": [
-        "Mint",
-        "Flash",
-        "Ace",
-        "Bridge",
-        "Sage",
-        "Thunder",
-        "Queen",
-        "Tunnel",
-        "Basil",
-        "Bolt",
-        "King",
-        "Road",
-        "Thyme",
-        "Strike",
-        "Jack",
-        "Highway"
-      ]
-    },
-    {
-      "id": 9,
-      "words": [
-        "Bow",
-        "Shuffle",
-        "Break",
-        "Folder",
-        "Stern",
-        "Deal",
-        "Rest",
-        "Window",
-        "Port",
-        "Draw",
-        "Pause",
-        "File",
-        "Starboard",
-        "Cut",
-        "Stop",
-        "Tab"
-      ]
-    },
-    {
-      "id": 10,
-      "words": [
-        "March",
-        "Jump",
-        "Check",
-        "Score",
-        "May",
-        "Skip",
-        "Invoice",
-        "Goal",
-        "June",
-        "Hop",
-        "Bill",
-        "Point",
-        "April",
-        "Leap",
-        "Tab",
-        "Run"
-      ]
-    },
-       {
-      "id": 11,
-      "words": ["Cameo", "Brocatelle", "Burlap", "Damask", "Locket", "Jacquard", "Hessian", "Brocade", "Medallion", "Chintz", "Muslin", "Taffeta", "Signet", "Calico", "Velour", "Organza"]
-    },
-    {
-      "id": 12,
-      "words": ["Parabola", "Helix", "Tessellation", "Fractal", "Hyperbola", "Spiral", "Symmetry", "Algorithm", "Ellipse", "Vortex", "Pattern", "Variable", "Asymptote", "Whirlpool", "Sequence", "Equation"]
-    },
-    {
-      "id": 13,
-      "words": ["Cypress", "Juniper", "Magnolia", "Sequoia", "Cedar", "Acacia", "Dogwood", "Baobab", "Redwood", "Wisteria", "Camellia", "Sycamore", "Eucalyptus", "Azalea", "Jacaranda", "Hawthorn"]
-    },
-    {
-      "id": 14,
-      "words": ["Fjord", "Atoll", "Estuary", "Glacier", "Archipelago", "Lagoon", "Delta", "Iceberg", "Peninsula", "Inlet", "Tributary", "Crevasse", "Isthmus", "Cove", "Watershed", "Moraine"]
-    },
-    {
-      "id": 15,
-      "words": ["Monocle", "Cufflink", "Ascot", "Fedora", "Cravat", "Pocketwatch", "Gaiter", "Bowler", "Lapels", "Suspenders", "Cummerbund", "Trilby", "Gorget", "Spats", "Fascinator", "Beret"]
-    },
-    {
-      "id": 16,
-      "words": ["Sonar", "Radar", "Lidar", "Telemetry", "Oscilloscope", "Spectrometer", "Barometer", "Hygrometer", "Altimeter", "Caliper", "Seismograph", "Thermocouple", "Manometer", "Tachometer", "Anemometer", "Chronometer"]
-    },
-    {
-      "id": 17,
-      "words": ["Safflower", "Cardamom", "Galangal", "Sumac", "Anise", "Clove", "Fenugreek", "Asafoetida", "Allspice", "Mace", "Tamarind", "Star Anise", "Coriander", "Fennel", "Paprika", "Nigella"]
-    },
-    {
-      "id": 18,
-      "words": ["Paladin", "Squire", "Berserker", "Druid", "Templar", "Ranger", "Sorcerer", "Bard", "Crusader", "Alchemist", "Warlock", "Monk", "Valkyrie", "Necromancer", "Cleric", "Enchanter"]
-    },
-    {
-      "id": 19,
-      "words": ["Sarcophagus", "Obituary", "Epitaph", "Mausoleum", "Urn", "Crypt", "Catacomb", "Cenotaph", "Reliquary", "Sepulcher", "Tombstone", "Necropolis", "Coffin", "Ossuary", "Cairn", "Catafalque"]
-    },
-    {
-      "id": 20,
-      "words": ["Sonorous", "Whisper", "Resonance", "Cadence", "Timbre", "Echo", "Pitch", "Dissonance", "Overtone", "Harmonic", "Reverberation", "Acoustics", "Vibration", "Frequency", "Amplitude", "Decibel"]
-    }
-  ]
-}
+[
+  {
+    "id": "set-1",
+    "groups": [
+      { "category": "Fruits", "words": ["Apple", "Cherry", "Banana", "Peach"], "level": 0 },
+      { "category": "Colors", "words": ["Blue", "Green", "Red", "Yellow"], "level": 1 },
+      { "category": "Musical instruments", "words": ["Violin", "Drum", "Flute", "Trumpet"], "level": 2 },
+      { "category": "Sports", "words": ["Tennis", "Golf", "Soccer", "Hockey"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-2",
+    "groups": [
+      { "category": "Geometric shapes", "words": ["Circle", "Triangle", "Square", "Oval"], "level": 0 },
+      { "category": "Tools", "words": ["Hammer", "Wrench", "Drill", "Pliers"], "level": 1 },
+      { "category": "Birds of prey", "words": ["Eagle", "Robin", "Falcon", "Sparrow"], "level": 2 },
+      { "category": "Planets", "words": ["Saturn", "Venus", "Mercury", "Neptune"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-3",
+    "groups": [
+      { "category": "Tree parts", "words": ["Bark", "Leaf", "Root", "Branch"], "level": 0 },
+      { "category": "Fish", "words": ["Salmon", "Trout", "Bass", "Cod"], "level": 1 },
+      { "category": "Chess pieces", "words": ["King", "Queen", "Knight", "Crown"], "level": 2 },
+      { "category": "Things with a head/teeth", "words": ["Hinge", "Handle", "Lock", "Key"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-4",
+    "groups": [
+      { "category": "Computer peripherals", "words": ["Mouse", "Monitor", "Keyboard", "Printer"], "level": 0 },
+      { "category": "Seasons", "words": ["Winter", "Spring", "Summer", "Fall"], "level": 1 },
+      { "category": "Music genres", "words": ["Jazz", "Blues", "Rock", "Country"], "level": 2 },
+      { "category": "Things made of calcium/ocean gems", "words": ["Shell", "Coral", "Pearl", "Sand"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-5",
+    "groups": [
+      { "category": "Financial institutions / River edges", "words": ["Bank", "Current", "Stream", "Flow"], "level": 0 },
+      { "category": "Timepieces", "words": ["Watch", "Ring", "Chain", "Band"], "level": 1 },
+      { "category": "Book divisions", "words": ["Chapter", "Cover", "Spine", "Page"], "level": 2 },
+      { "category": "Things that pitch", "words": ["Pitch", "Diamond", "Bat", "Base"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-6",
+    "groups": [
+      { "category": "Card suits", "words": ["Club", "Heart", "Spade", "Diamond"], "level": 0 },
+      { "category": "Document adjustments", "words": ["Draft", "Edit", "Revise", "Proof"], "level": 1 },
+      { "category": "Musical terms", "words": ["Scale", "Chord", "Note", "Key"], "level": 2 },
+      { "category": "Things that generate a spark", "words": ["Light", "Match", "Fire", "Spark"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-7",
+    "groups": [
+      { "category": "Jar closures", "words": ["Cap", "Lid", "Top", "Seal"], "level": 0 },
+      { "category": "Things that get stuck", "words": ["Jam", "Screen", "Bat", "Fix"], "level": 1 },
+      { "category": "Machinery", "words": ["Crane", "Stage", "Cast", "Mole"], "level": 2 },
+      { "category": "Things you 'tie'", "words": ["Crown", "Pickle", "Bind", "Script"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-8",
+    "groups": [
+      { "category": "Herbs", "words": ["Mint", "Sage", "Basil", "Thyme"], "level": 0 },
+      { "category": "Face cards", "words": ["Ace", "Queen", "King", "Jack"], "level": 1 },
+      { "category": "Underground pathways", "words": ["Tunnel", "Road", "Bolt", "Highway"], "level": 2 },
+      { "category": "Things that are flash/lightning related", "words": ["Flash", "Thunder", "Bridge", "Strike"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-9",
+    "groups": [
+      { "category": "Computer file structures", "words": ["Folder", "Window", "File", "Tab"], "level": 0 },
+      { "category": "Nautical directions / Ship parts", "words": ["Stern", "Port", "Starboard", "Bow"], "level": 1 },
+      { "category": "Card game actions", "words": ["Shuffle", "Deal", "Draw", "Cut"], "level": 2 },
+      { "category": "Things that mean 'halt'", "words": ["Break", "Rest", "Pause", "Stop"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-10",
+    "groups": [
+      { "category": "Months", "words": ["March", "May", "June", "April"], "level": 0 },
+      { "category": "Move by bounding", "words": ["Jump", "Skip", "Hop", "Leap"], "level": 1 },
+      { "category": "Financial requests", "words": ["Check", "Invoice", "Goal", "Bill"], "level": 2 },
+      { "category": "Sports metrics", "words": ["Score", "Point", "Tab", "Run"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-11",
+    "groups": [
+      { "category": "Heavy fabrics", "words": ["Brocatelle", "Burlap", "Damask", "Hessian"], "level": 0 },
+      { "category": "Patterned or glossy fabrics", "words": ["Jacquard", "Brocade", "Chintz", "Taffeta"], "level": 1 },
+      { "category": "Lightweight fabrics", "words": ["Muslin", "Calico", "Velour", "Organza"], "level": 2 },
+      { "category": "Trinkets and jewelry", "words": ["Cameo", "Locket", "Medallion", "Signet"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-12",
+    "groups": [
+      { "category": "Mathematical curves", "words": ["Parabola", "Hyperbola", "Ellipse", "Asymptote"], "level": 0 },
+      { "category": "Swirling shapes", "words": ["Helix", "Spiral", "Vortex", "Whirlpool"], "level": 1 },
+      { "category": "Math concepts", "words": ["Tessellation", "Fractal", "Symmetry", "Equation"], "level": 2 },
+      { "category": "Computational terms", "words": ["Algorithm", "Pattern", "Variable", "Sequence"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-13",
+    "groups": [
+      { "category": "Coniferous trees", "words": ["Cypress", "Juniper", "Sequoia", "Cedar"], "level": 0 },
+      { "category": "Flowering trees", "words": ["Magnolia", "Dogwood", "Wisteria", "Camellia"], "level": 1 },
+      { "category": "Exotic or tropical trees", "words": ["Acacia", "Baobab", "Eucalyptus", "Jacaranda"], "level": 2 },
+      { "category": "Deciduous / other trees", "words": ["Redwood", "Sycamore", "Azalea", "Hawthorn"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-14",
+    "groups": [
+      { "category": "Coastal water bodies", "words": ["Fjord", "Estuary", "Laguna", "Inlet"], "level": 0 },
+      { "category": "Land/water formations", "words": ["Atoll", "Archipelago", "Delta", "Peninsula"], "level": 1 },
+      { "category": "Ice formations", "words": ["Glacier", "Iceberg", "Crevasse", "Moraine"], "level": 2 },
+      { "category": "Water channels / boundaries", "words": ["Tributary", "Isthmus", "Cove", "Watershed"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-15",
+    "groups": [
+      { "category": "Formal neckwear", "words": ["Ascot", "Cravat", "Cummerbund", "Gorget"], "level": 0 },
+      { "category": "Hats", "words": ["Fedora", "Bowler", "Trilby", "Beret"], "level": 1 },
+      { "category": "Accessories / fasteners", "words": ["Cufflink", "Pocketwatch", "Suspenders", "Spats"], "level": 2 },
+      { "category": "Vintage/niche attire items", "words": ["Monocle", "Gaiter", "Lapels", "Fascinator"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-16",
+    "groups": [
+      { "category": "Wave-based detection tools", "words": ["Sonar", "Radar", "Lidar", "Telemetry"], "level": 0 },
+      { "category": "Atmospheric measuring tools", "words": ["Barometer", "Hygrometer", "Altimeter", "Anemometer"], "level": 1 },
+      { "category": "Scientific measurement devices", "words": ["Oscilloscope", "Spectrometer", "Seismograph", "Chronometer"], "level": 2 },
+      { "category": "Precision gauges / instruments", "words": ["Caliper", "Thermocouple", "Manometer", "Tachometer"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-17",
+    "groups": [
+      { "category": "Common spices", "words": ["Cardamom", "Clove", "Allspice", "Coriander"], "level": 0 },
+      { "category": "Unique aromatics / seeds", "words": ["Anise", "Star Anise", "Fennel", "Nigella"], "level": 1 },
+      { "category": "Earthy / root spices", "words": ["Galangal", "Sumac", "Fenugreek", "Asafoetida"], "level": 2 },
+      { "category": "Powdered / resinous flavorings", "words": ["Safflower", "Mace", "Tamarind", "Paprika"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-18",
+    "groups": [
+      { "category": "Standard fantasy archetypes", "words": ["Paladin", "Squire", "Berserker", "Druid"], "level": 0 },
+      { "category": "Holy or combat roles", "words": ["Templar", "Crusader", "Monk", "Cleric"], "level": 1 },
+      { "category": "Magical spellcasters", "words": ["Sorcerer", "Alchemist", "Warlock", "Necromancer"], "level": 2 },
+      { "category": "Specialized fantasy classes", "words": ["Ranger", "Bard", "Valkyrie", "Enchanter"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-19",
+    "groups": [
+      { "category": "Above-ground burial structures", "words": ["Mausoleum", "Cenotaph", "Tombstone", "Cairn"], "level": 0 },
+      { "category": "Underground burial sites", "words": ["Crypt", "Catacomb", "Sepulcher", "Necropolis"], "level": 1 },
+      { "category": "Memorial containers", "words": ["Urn", "Reliquary", "Coffin", "Ossuary"], "level": 2 },
+      { "category": "Death-related monuments/records", "words": ["Sarcophagus", "Obituary", "Epitaph", "Catafalque"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-20",
+    "groups": [
+      { "category": "Sound properties", "words": ["Timbre", "Pitch", "Overtone", "Harmonic"], "level": 0 },
+      { "category": "Acoustic phenomena", "words": ["Sonorous", "Resonance", "Echo", "Reverberation"], "level": 1 },
+      { "category": "Sound descriptors", "words": ["Whisper", "Cadence", "Dissonance", "Decibel"], "level": 2 },
+      { "category": "Physics of sound", "words": ["Acoustics", "Vibration", "Frequency", "Amplitude"], "level": 3 }
+    ]
+  }
+]
