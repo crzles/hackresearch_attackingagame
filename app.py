@@ -19,7 +19,12 @@ with st.sidebar:
     if st.button("Load Puzzles"):
         with st.spinner("Loading puzzles..."):
             path = puzzle_path if puzzle_path.strip() else None
-            st.session_state.puzzles = load_puzzles(path)[:max_puzzles]
+            loaded_puzzles = load_puzzles(path)
+            
+            # Shuffle all available puzzles before taking max_puzzles
+            random.shuffle(loaded_puzzles)
+            
+            st.session_state.puzzles = loaded_puzzles[:max_puzzles]
             st.session_state.puzzle_idx = 0
             st.session_state.game_state = None
             st.success("Loaded puzzles successfully!")
