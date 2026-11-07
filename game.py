@@ -7,8 +7,10 @@ from pathlib import Path
 import kagglehub
 
 
-def load_puzzles(csv_path=None):
-    """Return a list of puzzles.
+def load_puzzles(csv_path=None, start_date=None):
+    """Return a list of puzzles, oldest first.
+
+    start_date: optional, like "2024-09-01". Only puzzles on or after this date are kept.
 
     Each puzzle is a list of 4 groups, and each group looks like:
         {"name": "WET WEATHER", "level": 0, "words": ["SNOW", "HAIL", "RAIN", "SLEET"]}
@@ -23,6 +25,11 @@ def load_puzzles(csv_path=None):
     games = {}  # games[game_id][group_name] = {"name":..., "level":..., "words": [...]}
     with open(csv_path, newline="", encoding="utf-8-sig") as f:
         for row in csv.DictReader(f):
+            # Skip puzzles before the start date. Dates look like "2024-09-01",
+            # so comparing them as text works.
+            if start_date and row["Puzzle Date"] < start_date:
+                continue
+
             game_id = row["Game ID"]
             group_name = row["Group Name"]
             word = row["Word"].strip().upper()
