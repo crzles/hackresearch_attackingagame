@@ -8,8 +8,11 @@ import re
 from dataclasses import dataclass
 
 import anthropic
+from dotenv import load_dotenv
 
 from game import Game
+
+load_dotenv()  # reads ANTHROPIC_API_KEY (and CONNECTIONS_MODEL) from a .env file if present
 
 MODEL = os.environ.get("CONNECTIONS_MODEL", "claude-sonnet-5-5")
 MAX_INVALID_RETRIES = 2

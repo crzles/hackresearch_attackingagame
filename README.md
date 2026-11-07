@@ -16,12 +16,15 @@ An AI that plays NYT-style Connections, built for the "Attacking a Game" hackath
 
 ```bash
 pip install -r requirements.txt
-export ANTHROPIC_API_KEY=your-key-here      # Windows PowerShell: $env:ANTHROPIC_API_KEY="your-key-here"
-python -m pytest -q                          # check the game logic
-python evaluate.py                           # run the solver on puzzles.json
+cp .env.example .env          # Windows: copy .env.example .env
+# open .env and paste your API key
+python -m pytest -q           # check the game logic
+python evaluate.py            # run the solver on puzzles.json
+python evaluate.py kaggle -n 20   # run on 20 real puzzles from Kaggle
 ```
 
-Change the model with `CONNECTIONS_MODEL` (default `claude-sonnet-5-5`).
+Each teammate creates their own `.env` with their own key. `.env` is in `.gitignore`, so it never gets committed.
+Change the model with `CONNECTIONS_MODEL` in `.env` (default `claude-sonnet-5-5`).
 
 ## Puzzle format
 
