@@ -24,6 +24,20 @@ with st.sidebar:
             st.session_state.game_state = None
             st.success("Loaded puzzles successfully!")
 
+    # --- ADDED: Next Puzzle Control ---
+    if st.session_state.get("puzzles"):
+        st.markdown("---")
+        st.subheader("Navigation")
+        total_puzzles = len(st.session_state.puzzles)
+        current_idx = st.session_state.get("puzzle_idx", 0)
+        
+        st.write(f"Puzzle **{current_idx + 1}** of **{total_puzzles}**")
+        
+        if st.button("➡️ Next Puzzle", disabled=(current_idx >= total_puzzles - 1)):
+            st.session_state.puzzle_idx += 1
+            st.session_state.game_state = None  # Resets the game state so reset_game() triggers for the new puzzle
+            st.rerun()
+
 # Initialize session state defaults
 if "puzzles" not in st.session_state:
     st.session_state.puzzles = []
