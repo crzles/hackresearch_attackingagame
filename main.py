@@ -8,7 +8,7 @@ from ai_player import ask_ai, ask_ai_one_shot
 from game import check_guess, load_puzzles
 
 # ---------- Settings ----------
-NUM_PUZZLES = 5            # how many puzzles to play (each one costs AI calls)
+NUM_PUZZLES = 20            # how many puzzles to play (each one costs AI calls)
 START_DATE = "2024-09-01"  # only use puzzles from this date on (the 2024 paper stopped at August 2024)
 MODE = "one_shot"          # "feedback" = one group at a time with hints (like the real game)
                            # "one_shot" = all 4 groups at once, no hints (like the 2024 paper)
