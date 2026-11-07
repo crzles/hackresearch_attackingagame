@@ -6,7 +6,7 @@ import random
 import json
 from pathlib import Path
 from game import load_puzzles, check_guess
-from ai_player import ask_ai
+from ai_player import ask_ai, ask_ai_one_shot
 
 st.set_page_config(page_title="Connections LLM Visualizer", layout="wide")
 
@@ -31,7 +31,7 @@ with st.sidebar:
     
     game_mode = st.selectbox(
         "Game Mode",
-        ["Standard (Feedback per turn)", "Blind Mode (4 guesses before feedback)"]
+        ["Standard (Feedback per turn)", "One-Shot Mode (All 4 groups at once)"]
     )
     
     max_puzzles = st.number_input("Max puzzles to load", value=5, min_value=1)
@@ -100,7 +100,6 @@ def reset_game(puzzle):
         "past_guesses": [],
         "tried": [],
         "turns_history": [],
-        "blind_guesses": [],
         "over": False,
         "won": False,
         "recorded_to_global": False
@@ -149,69 +148,68 @@ if st.session_state.puzzles:
         status_text = "Won 🎉" if state["won"] else ("Lost ❌" if state["over"] else "In Progress ⏳")
         st.metric("Game Status", status_text)
         
-        is_blind = "Blind Mode" in game_mode
-        max_turns_reached = len(state["turns_history"]) >= 4
+        is_one_shot = "One-Shot Mode" in game_mode
+        # Stop only if the game is over, mistakes have reached 4, or all groups are solved
+        max_turns_reached = state["mistakes"] >= 4 or len(state["solved_groups"]) == 4
 
-        if not state["over"] and not (is_blind and max_turns_reached):
-            if st.button("Run Next LLM Turn", type="primary"):
+        if not state["over"] and not max_turns_reached:
+            button_label = "Run One-Shot AI Solve" if is_one_shot else "Run Next LLM Turn"
+            if st.button(button_label, type="primary"):
                 try:
                     solved_text = [f"{g['name']}: {', '.join(g['words'])}" for g in state["solved_groups"]]
                     
-                    if is_blind:
-                        # --- BLIND MODE LOOP ---
-                        temp_words_left = list(state["words_left"])
-                        temp_past_guesses = list(state["past_guesses"])
-                        state["blind_guesses"] = []
-                        state["turns_history"] = []
+                    if is_one_shot:
+                        # --- ONE-SHOT MODE ---
+                        words_all = list(state["words_left"])
+                        answer = None
                         
-                        for step in range(4):
-                            if len(temp_words_left) < 4:
+                        for attempt in range(3):
+                            try:
+                                answer = ask_ai_one_shot(words_all)
                                 break
-                            
-                            words, category = ask_ai(
-                                temp_words_left, 
-                                solved_text, 
-                                temp_past_guesses, 
-                                mistakes_left
-                            )
-                            
-                            on_board = all(w in temp_words_left for w in words)
-                            already_tried = sorted(words) in state["tried"]
-                            
-                            if len(set(words)) == 4 and on_board and not already_tried:
-                                state["blind_guesses"].append({"words": words, "category": category})
-                                state["tried"].append(sorted(words))
-                                temp_words_left = [w for w in temp_words_left if w not in words]
-                                temp_past_guesses.append(f"{', '.join(sorted(words))} (proposed)")
+                            except Exception as error:
+                                continue
                                 
+                        if answer is None:
+                            state["turns_history"].append({
+                                "words": ["---"],
+                                "category": "Parsing Failed / API Error",
+                                "status": "invalid",
+                                "message": "AI failed to return a properly formatted 4-group list after 3 attempts. Check your ai_player.py prompt or API limits."
+                            })
+                            state["mistakes"] = 4
+                            state["over"] = True
+                            state["won"] = False
+                        else:
+                            state["turns_history"] = []
+                            solved_groups = []
+                            
+                            for guess, category in answer:
+                                res, grp = check_guess(puzzle_groups, guess)
+                                if res == "correct" and grp in solved_groups:
+                                    res = "repeat"
+                                    status = "wrong"
+                                    msg = f"Repeated group: {grp['name']}"
+                                elif res == "correct":
+                                    solved_groups.append(grp)
+                                    status = "correct"
+                                    msg = f"Correct! {grp['name']}"
+                                else:
+                                    status = "wrong"
+                                    msg = f"Incorrect guess for category: {category}"
+                                    
                                 state["turns_history"].append({
-                                    "words": words,
+                                    "words": guess,
                                     "category": category,
-                                    "status": "pending",
-                                    "message": f"Blind Guess #{step + 1} recorded."
+                                    "status": status,
+                                    "message": msg
                                 })
-                            else:
-                                state["turns_history"].append({
-                                    "words": words,
-                                    "category": category,
-                                    "status": "invalid",
-                                    "message": "AI provided invalid or repeated words during blind sequence."
-                                })
-
-                        # Evaluate all 4 blind guesses together
-                        total_mistakes = 0
-                        for bg in state["blind_guesses"]:
-                            res, grp = check_guess(puzzle_groups, bg["words"])
-                            if res == "correct":
-                                if grp not in state["solved_groups"]:
-                                    state["solved_groups"].append(grp)
-                                    state["words_left"] = [w for w in state["words_left"] if w not in grp["words"]]
-                            else:
-                                total_mistakes += 1
                                 
-                        state["mistakes"] = total_mistakes
-                        state["over"] = True
-                        state["won"] = (len(state["solved_groups"]) == 4)
+                            state["solved_groups"] = solved_groups
+                            state["mistakes"] = 4 - len(solved_groups)
+                            state["over"] = True
+                            state["won"] = (len(solved_groups) == 4)
+                            state["words_left"] = [w for w in words_all if not any(w in g["words"] for g in solved_groups)]
 
                     else:
                         # --- STANDARD MODE ---
