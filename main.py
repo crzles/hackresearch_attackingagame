@@ -56,7 +56,7 @@ def play(puzzle):
 
 
 def main():
-    puzzles = load_puzzles()[:NUM_PUZZLES]
+    puzzles = load_puzzles()[-NUM_PUZZLES:]
     wins = 0
     total_mistakes = 0
     solved_by_color = [0, 0, 0, 0]
