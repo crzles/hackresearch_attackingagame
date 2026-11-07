@@ -232,22 +232,38 @@ if st.session_state.puzzles:
                             state["past_guesses"], 
                             mistakes_left
                         )
-                        # Change this:
-                        on_board = all(w in state["words_left"] for w in words)
-
-                        # To this:
+                        
                         words_lower = [w.lower() for w in words]
                         board_lower = [w.lower() for w in state["words_left"]]
                         on_board = all(w in board_lower for w in words_lower)
                         already_tried = sorted(words) in state["tried"]
                         
                         if len(set(words)) == 4 and on_board and not already_tried:
-                            result, group = check_guess(puzzle_groups, words)
+                            # Robust group matching for custom JSON & Kaggle
+                            matched_group = None
+                            for g in puzzle_groups:
+                                g_words_lower = [w.lower() for w in g.get("words", [])]
+                                if set(g_words_lower) == set(words_lower):
+                                    matched_group = g
+                                    break
+                            
+                            # Normalize group dictionary to have a standard 'name' key
+                            if matched_group:
+                                result = "correct"
+                                group = dict(matched_group)
+                                if "category" in group and "name" not in group:
+                                    group["name"] = group["category"]
+                            else:
+                                result, group = check_guess(puzzle_groups, words)
+                                if group and "category" in group and "name" not in group:
+                                    group["name"] = group["category"]
                             
                             if result == "correct":
                                 state["solved_groups"].append(group)
-                                state["words_left"] = [w for w in state["words_left"] if w not in group["words"]]
-                                message = f"Correct! {group['name']}"
+                                # Remove words using case-insensitive check
+                                solved_words_lower = [w.lower() for w in group["words"]]
+                                state["words_left"] = [w for w in state["words_left"] if w.lower() not in solved_words_lower]
+                                message = f"Correct! {group.get('name', group.get('category', 'Group'))}"
                                 status = "correct"
                             elif result == "one away":
                                 state["mistakes"] += 1
