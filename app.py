@@ -19,10 +19,29 @@ with st.sidebar:
     if st.button("Load Puzzles"):
         with st.spinner("Loading puzzles..."):
             path = puzzle_path if puzzle_path.strip() else None
-            st.session_state.puzzles = load_puzzles(path)[:max_puzzles]
+            loaded_puzzles = load_puzzles(path)
+            
+            # Shuffle all available puzzles before taking max_puzzles
+            random.shuffle(loaded_puzzles)
+            
+            st.session_state.puzzles = loaded_puzzles[:max_puzzles]
             st.session_state.puzzle_idx = 0
             st.session_state.game_state = None
             st.success("Loaded puzzles successfully!")
+
+    # --- ADDED: Next Puzzle Control ---
+    if st.session_state.get("puzzles"):
+        st.markdown("---")
+        st.subheader("Navigation")
+        total_puzzles = len(st.session_state.puzzles)
+        current_idx = st.session_state.get("puzzle_idx", 0)
+        
+        st.write(f"Puzzle **{current_idx + 1}** of **{total_puzzles}**")
+        
+        if st.button("➡️ Next Puzzle", disabled=(current_idx >= total_puzzles - 1)):
+            st.session_state.puzzle_idx += 1
+            st.session_state.game_state = None  # Resets the game state so reset_game() triggers for the new puzzle
+            st.rerun()
 
 # Initialize session state defaults
 if "puzzles" not in st.session_state:
@@ -65,10 +84,11 @@ if st.session_state.puzzles:
         if state["words_left"]:
             cols = st.columns(4)
             for i, word in enumerate(state["words_left"]):
-                cols[i % 4].markdown(
-                    f"<div style='padding:12px; border:1px solid #ccc; text-align:center; border-radius:6px; margin-bottom:8px; background-color: #f9f9f9;'><b>{word}</b></div>", 
-                    unsafe_allow_html=True
-                )
+                with cols[i % 4]:
+                    st.container(border=True).markdown(
+                        f"<div style='text-align:center;'><b>{word}</b></div>", 
+                        unsafe_allow_html=True
+                    )
         else:
             st.info("No words remaining on the board.")
             
