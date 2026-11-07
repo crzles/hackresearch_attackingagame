@@ -1,5 +1,3 @@
-anthropic
-pytest
-kagglehub
-python-dotenv
 openai
+python-dotenv
+kagglehub

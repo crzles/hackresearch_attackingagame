@@ -1,0 +1,3 @@
+OPENAI_API_KEY=your-key-here
+OPENAI_BASE_URL=https://rgvaiclass.com/v1
+MODEL=gpt-5
