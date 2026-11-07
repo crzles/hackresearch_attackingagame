@@ -209,6 +209,46 @@
         "Tab",
         "Run"
       ]
+    },
+       {
+      "id": 11,
+      "words": ["Cameo", "Brocatelle", "Burlap", "Damask", "Locket", "Jacquard", "Hessian", "Brocade", "Medallion", "Chintz", "Muslin", "Taffeta", "Signet", "Calico", "Velour", "Organza"]
+    },
+    {
+      "id": 12,
+      "words": ["Parabola", "Helix", "Tessellation", "Fractal", "Hyperbola", "Spiral", "Symmetry", "Algorithm", "Ellipse", "Vortex", "Pattern", "Variable", "Asymptote", "Whirlpool", "Sequence", "Equation"]
+    },
+    {
+      "id": 13,
+      "words": ["Cypress", "Juniper", "Magnolia", "Sequoia", "Cedar", "Acacia", "Dogwood", "Baobab", "Redwood", "Wisteria", "Camellia", "Sycamore", "Eucalyptus", "Azalea", "Jacaranda", "Hawthorn"]
+    },
+    {
+      "id": 14,
+      "words": ["Fjord", "Atoll", "Estuary", "Glacier", "Archipelago", "Lagoon", "Delta", "Iceberg", "Peninsula", "Inlet", "Tributary", "Crevasse", "Isthmus", "Cove", "Watershed", "Moraine"]
+    },
+    {
+      "id": 15,
+      "words": ["Monocle", "Cufflink", "Ascot", "Fedora", "Cravat", "Pocketwatch", "Gaiter", "Bowler", "Lapels", "Suspenders", "Cummerbund", "Trilby", "Gorget", "Spats", "Fascinator", "Beret"]
+    },
+    {
+      "id": 16,
+      "words": ["Sonar", "Radar", "Lidar", "Telemetry", "Oscilloscope", "Spectrometer", "Barometer", "Hygrometer", "Altimeter", "Caliper", "Seismograph", "Thermocouple", "Manometer", "Tachometer", "Anemometer", "Chronometer"]
+    },
+    {
+      "id": 17,
+      "words": ["Safflower", "Cardamom", "Galangal", "Sumac", "Anise", "Clove", "Fenugreek", "Asafoetida", "Allspice", "Mace", "Tamarind", "Star Anise", "Coriander", "Fennel", "Paprika", "Nigella"]
+    },
+    {
+      "id": 18,
+      "words": ["Paladin", "Squire", "Berserker", "Druid", "Templar", "Ranger", "Sorcerer", "Bard", "Crusader", "Alchemist", "Warlock", "Monk", "Valkyrie", "Necromancer", "Cleric", "Enchanter"]
+    },
+    {
+      "id": 19,
+      "words": ["Sarcophagus", "Obituary", "Epitaph", "Mausoleum", "Urn", "Crypt", "Catacomb", "Cenotaph", "Reliquary", "Sepulcher", "Tombstone", "Necropolis", "Coffin", "Ossuary", "Cairn", "Catafalque"]
+    },
+    {
+      "id": 20,
+      "words": ["Sonorous", "Whisper", "Resonance", "Cadence", "Timbre", "Echo", "Pitch", "Dissonance", "Overtone", "Harmonic", "Reverberation", "Acoustics", "Vibration", "Frequency", "Amplitude", "Decibel"]
     }
   ]
 }
