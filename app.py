@@ -3,6 +3,8 @@
 
 import streamlit as st
 import random
+import json
+from pathlib import Path
 from game import load_puzzles, check_guess
 from ai_player import ask_ai
 
@@ -10,40 +12,73 @@ st.set_page_config(page_title="Connections LLM Visualizer", layout="wide")
 
 st.title("🧩 Connections LLM Decision Visualizer")
 
-# Sidebar for controls
+# --- GLOBAL HISTORY INITIALIZATION (Used to pass data to analytics.py) ---
+if "global_history" not in st.session_state:
+    st.session_state.global_history = []
+
+# --- SIDEBAR CONFIGURATION ---
 with st.sidebar:
     st.header("Settings")
-    puzzle_path = st.text_input("Puzzle file / source (leave blank for Kaggle)", value="")
-    max_puzzles = st.number_input("Max puzzles", value=1, min_value=1)
+    
+    puzzle_source = st.selectbox(
+        "Puzzle Source",
+        ["Kaggle Dataset", "Self-Made Puzzles (JSON)"]
+    )
+    
+    puzzle_path = ""
+    if puzzle_source == "Self-Made Puzzles (JSON)":
+        puzzle_path = st.text_input("Path to custom JSON file", value="my_puzzles.json")
+    
+    game_mode = st.selectbox(
+        "Game Mode",
+        ["Standard (Feedback per turn)", "Blind Mode (4 guesses before feedback)"]
+    )
+    
+    max_puzzles = st.number_input("Max puzzles to load", value=5, min_value=1)
+    shuffle_puzzles = st.checkbox("Shuffle Puzzles", value=True)
     
     if st.button("Load Puzzles"):
         with st.spinner("Loading puzzles..."):
-            path = puzzle_path if puzzle_path.strip() else None
-            loaded_puzzles = load_puzzles(path)
-            
-            # Shuffle all available puzzles before taking max_puzzles
-            random.shuffle(loaded_puzzles)
-            
-            st.session_state.puzzles = loaded_puzzles[:max_puzzles]
-            st.session_state.puzzle_idx = 0
-            st.session_state.game_state = None
-            st.success("Loaded puzzles successfully!")
+            try:
+                if puzzle_source == "Kaggle Dataset":
+                    all_puzzles = load_puzzles(None)
+                else:
+                    if Path(puzzle_path).exists():
+                        with open(puzzle_path, "r", encoding="utf-8") as f:
+                            all_puzzles = json.load(f)
+                    else:
+                        st.error(f"File {puzzle_path} not found.")
+                        all_puzzles = []
 
-    # --- ADDED: Next Puzzle Control ---
+                if shuffle_puzzles and all_puzzles:
+                    random.shuffle(all_puzzles)
+                
+                st.session_state.puzzles = all_puzzles[:max_puzzles]
+                st.session_state.puzzle_idx = 0
+                st.session_state.game_state = None
+                st.success("Loaded puzzles successfully!")
+            except Exception as e:
+                st.error(f"Error loading puzzles: {e}")
+
     if st.session_state.get("puzzles"):
         st.markdown("---")
-        st.subheader("Navigation")
         total_puzzles = len(st.session_state.puzzles)
         current_idx = st.session_state.get("puzzle_idx", 0)
-        
         st.write(f"Puzzle **{current_idx + 1}** of **{total_puzzles}**")
         
-        if st.button("➡️ Next Puzzle", disabled=(current_idx >= total_puzzles - 1)):
-            st.session_state.puzzle_idx += 1
-            st.session_state.game_state = None  # Resets the game state so reset_game() triggers for the new puzzle
-            st.rerun()
+        col_prev, col_next = st.columns(2)
+        with col_prev:
+            if st.button("⬅️ Prev", disabled=(current_idx <= 0)):
+                st.session_state.puzzle_idx -= 1
+                st.session_state.game_state = None
+                st.rerun()
+        with col_next:
+            if st.button("Next ➡️", disabled=(current_idx >= total_puzzles - 1)):
+                st.session_state.puzzle_idx += 1
+                st.session_state.game_state = None
+                st.rerun()
 
-# Initialize session state defaults
+# --- INITIALIZE SESSION STATE DEFAULTS ---
 if "puzzles" not in st.session_state:
     st.session_state.puzzles = []
 if "puzzle_idx" not in st.session_state:
@@ -52,34 +87,43 @@ if "game_state" not in st.session_state:
     st.session_state.game_state = None
 
 def reset_game(puzzle):
-    words_left = [w for group in puzzle for w in group["words"]]
+    groups = puzzle.groups if hasattr(puzzle, "groups") else puzzle
+    words_left = [w for group in groups for w in group["words"]]
     random.shuffle(words_left)
+    
     st.session_state.game_state = {
+        "puzzle_id": getattr(puzzle, "id", f"Puzzle_{st.session_state.puzzle_idx}"),
+        "groups": groups,
         "words_left": words_left,
         "solved_groups": [],
         "mistakes": 0,
         "past_guesses": [],
         "tried": [],
         "turns_history": [],
+        "blind_guesses": [],
         "over": False,
-        "won": False
+        "won": False,
+        "recorded_to_global": False
     }
 
 if st.session_state.puzzles:
     puzzle = st.session_state.puzzles[st.session_state.puzzle_idx]
     
+    if st.session_state.game_state is None:
+        reset_game(puzzle)
+
+    state = st.session_state.game_state
+    puzzle_groups = state["groups"]
+
     col1, col2 = st.columns([2, 1])
     
     with col1:
-        st.subheader(f"Puzzle Index: {st.session_state.puzzle_idx}")
+        st.subheader(f"Puzzle Index: {st.session_state.puzzle_idx} | Mode: {game_mode}")
         
-        if st.button("Start / Reset Game") or st.session_state.game_state is None:
+        if st.button("🔄 Reset Current Game"):
             reset_game(puzzle)
             st.rerun()
             
-        state = st.session_state.game_state
-        
-        # Display Board / Remaining Words
         st.markdown("### Current Board Words")
         if state["words_left"]:
             cols = st.columns(4)
@@ -92,92 +136,159 @@ if st.session_state.puzzles:
         else:
             st.info("No words remaining on the board.")
             
-        # Display Solved Groups
         if state["solved_groups"]:
             st.markdown("### Solved Groups")
             for g in state["solved_groups"]:
                 st.success(f"**{g['name']}**: {', '.join(g['words'])}")
 
     with col2:
-        state = st.session_state.game_state
         mistakes_left = 4 - state["mistakes"]
-        
         st.markdown("### Stats & Controls")
         st.metric("Mistakes Left", mistakes_left)
         
         status_text = "Won 🎉" if state["won"] else ("Lost ❌" if state["over"] else "In Progress ⏳")
         st.metric("Game Status", status_text)
         
-        if not state["over"]:
+        is_blind = "Blind Mode" in game_mode
+        max_turns_reached = len(state["turns_history"]) >= 4
+
+        if not state["over"] and not (is_blind and max_turns_reached):
             if st.button("Run Next LLM Turn", type="primary"):
                 try:
                     solved_text = [f"{g['name']}: {', '.join(g['words'])}" for g in state["solved_groups"]]
                     
-                    # Call your existing ask_ai function from ai_player.py
-                    words, category = ask_ai(
-                        state["words_left"], 
-                        solved_text, 
-                        state["past_guesses"], 
-                        mistakes_left
-                    )
-                    
-                    # Validate selection against current board and tries
-                    on_board = all(w in state["words_left"] for w in words)
-                    already_tried = sorted(words) in state["tried"]
-                    
-                    if len(set(words)) == 4 and on_board and not already_tried:
-                        result, group = check_guess(puzzle, words)
+                    if is_blind:
+                        # --- BLIND MODE LOOP ---
+                        temp_words_left = list(state["words_left"])
+                        temp_past_guesses = list(state["past_guesses"])
+                        state["blind_guesses"] = []
+                        state["turns_history"] = []
                         
-                        if result == "correct":
-                            state["solved_groups"].append(group)
-                            state["words_left"] = [w for w in state["words_left"] if w not in group["words"]]
-                            message = f"Correct! {group['name']}"
-                            status = "correct"
-                        elif result == "one away":
-                            state["mistakes"] += 1
-                            state["tried"].append(sorted(words))
-                            state["past_guesses"].append(f"{', '.join(sorted(words))} -> one away")
-                            message = "One away!"
-                            status = "one away"
-                        else:
-                            state["mistakes"] += 1
-                            state["tried"].append(sorted(words))
-                            state["past_guesses"].append(f"{', '.join(sorted(words))} -> wrong")
-                            message = "Incorrect."
-                            status = "wrong"
+                        for step in range(4):
+                            if len(temp_words_left) < 4:
+                                break
                             
-                        if len(state["solved_groups"]) == 4:
-                            state["won"] = True
-                            state["over"] = True
-                        elif state["mistakes"] >= 4:
-                            state["over"] = True
+                            words, category = ask_ai(
+                                temp_words_left, 
+                                solved_text, 
+                                temp_past_guesses, 
+                                mistakes_left
+                            )
                             
-                        state["turns_history"].append({
-                            "words": words,
-                            "category": category,
-                            "status": status,
-                            "message": message
-                        })
+                            on_board = all(w in temp_words_left for w in words)
+                            already_tried = sorted(words) in state["tried"]
+                            
+                            if len(set(words)) == 4 and on_board and not already_tried:
+                                state["blind_guesses"].append({"words": words, "category": category})
+                                state["tried"].append(sorted(words))
+                                temp_words_left = [w for w in temp_words_left if w not in words]
+                                temp_past_guesses.append(f"{', '.join(sorted(words))} (proposed)")
+                                
+                                state["turns_history"].append({
+                                    "words": words,
+                                    "category": category,
+                                    "status": "pending",
+                                    "message": f"Blind Guess #{step + 1} recorded."
+                                })
+                            else:
+                                state["turns_history"].append({
+                                    "words": words,
+                                    "category": category,
+                                    "status": "invalid",
+                                    "message": "AI provided invalid or repeated words during blind sequence."
+                                })
+
+                        # Evaluate all 4 blind guesses together
+                        total_mistakes = 0
+                        for bg in state["blind_guesses"]:
+                            res, grp = check_guess(puzzle_groups, bg["words"])
+                            if res == "correct":
+                                if grp not in state["solved_groups"]:
+                                    state["solved_groups"].append(grp)
+                                    state["words_left"] = [w for w in state["words_left"] if w not in grp["words"]]
+                            else:
+                                total_mistakes += 1
+                                
+                        state["mistakes"] = total_mistakes
+                        state["over"] = True
+                        state["won"] = (len(state["solved_groups"]) == 4)
+
                     else:
-                        msg = "AI gave invalid, repeated, or off-board words."
-                        state["turns_history"].append({
-                            "words": words,
-                            "category": category,
-                            "status": "invalid",
-                            "message": msg
+                        # --- STANDARD MODE ---
+                        words, category = ask_ai(
+                            state["words_left"], 
+                            solved_text, 
+                            state["past_guesses"], 
+                            mistakes_left
+                        )
+                        
+                        on_board = all(w in state["words_left"] for w in words)
+                        already_tried = sorted(words) in state["tried"]
+                        
+                        if len(set(words)) == 4 and on_board and not already_tried:
+                            result, group = check_guess(puzzle_groups, words)
+                            
+                            if result == "correct":
+                                state["solved_groups"].append(group)
+                                state["words_left"] = [w for w in state["words_left"] if w not in group["words"]]
+                                message = f"Correct! {group['name']}"
+                                status = "correct"
+                            elif result == "one away":
+                                state["mistakes"] += 1
+                                state["tried"].append(sorted(words))
+                                state["past_guesses"].append(f"{', '.join(sorted(words))} -> one away")
+                                message = "One away!"
+                                status = "one away"
+                            else:
+                                state["mistakes"] += 1
+                                state["tried"].append(sorted(words))
+                                state["past_guesses"].append(f"{', '.join(sorted(words))} -> wrong")
+                                message = "Incorrect."
+                                status = "wrong"
+                                
+                            if len(state["solved_groups"]) == 4:
+                                state["won"] = True
+                                state["over"] = True
+                            elif state["mistakes"] >= 4:
+                                state["over"] = True
+                                
+                            state["turns_history"].append({
+                                "words": words,
+                                "category": category,
+                                "status": status,
+                                "message": message
+                            })
+                        else:
+                            msg = "AI gave invalid, repeated, or off-board words."
+                            state["turns_history"].append({
+                                "words": words,
+                                "category": category,
+                                "status": "invalid",
+                                "message": msg
+                            })
+
+                    if state["over"] and not state["recorded_to_global"]:
+                        st.session_state.global_history.append({
+                            "puzzle_id": state["puzzle_id"],
+                            "won": state["won"],
+                            "mistakes": state["mistakes"],
+                            "turns_count": len(state["turns_history"]),
+                            "turns": state["turns_history"]
                         })
+                        state["recorded_to_global"] = True
+
                     st.rerun()
                 except Exception as e:
                     st.error(f"Error during LLM call: {e}")
 
-    # Display LLM Decision History
+    # Decision Stream
     if state["turns_history"]:
         st.markdown("---")
         st.subheader("LLM Decision Stream")
         for turn in reversed(state["turns_history"]):
-            badge = "🟢" if turn['status'] == "correct" else ("🟡" if turn['status'] == "one away" else "🔴" if turn['status'] == "wrong" else "⚠️")
+            badge = "🟢" if turn['status'] == "correct" else ("🟡" if turn['status'] == "one away" else ("🔴" if turn['status'] == "wrong" else "⚠️"))
             with st.expander(f"{badge} Guess: {', '.join(turn['words'])} [{turn['status'].upper()}]"):
                 st.write(f"**Category Idea:** {turn['category']}")
                 st.write(f"**Feedback:** {turn['message']}")
 else:
-    st.info("👈 Use the sidebar to load your puzzles and begin!")
+    st.info("👈 Configure settings in the sidebar, load your puzzles, and begin!")
