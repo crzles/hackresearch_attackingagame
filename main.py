@@ -4,16 +4,27 @@
 
 import random
 
-from ai_player import ask_ai
+from ai_player import ask_ai, ask_ai_one_shot
 from game import check_guess, load_puzzles
 
-NUM_PUZZLES = 5  # how many puzzles to play (each one costs several AI calls)
+# ---------- Settings ----------
+NUM_PUZZLES = 5            # how many puzzles to play (each one costs AI calls)
 START_DATE = "2024-09-01"  # only use puzzles from this date on (the 2024 paper stopped at August 2024)
+MODE = "feedback"          # "feedback" = one group at a time with hints (like the real game)
+                           # "one_shot" = all 4 groups at once, no hints (like the 2024 paper)
+# ------------------------------
+
 COLORS = ["yellow", "green", "blue", "purple"]
 
 
-def play(puzzle):
-    """Play one puzzle. Returns (won, mistakes, list of solved groups)."""
+def weighted_score(solved_groups):
+    """Points from the 2024 paper: yellow 1, green 2, blue 3, purple 4 (max 10)."""
+    return sum(group["level"] + 1 for group in solved_groups)
+
+
+def play_feedback(puzzle):
+    """Real-game rules: guess one group at a time, get feedback, 4 mistakes allowed.
+    Returns (list of solved groups, mistakes)."""
     words_left = [w for group in puzzle for w in group["words"]]
     random.shuffle(words_left)
     solved_groups = []
@@ -52,32 +63,77 @@ def play(puzzle):
             tried.append(sorted(guess))
             past_guesses.append(f"{', '.join(sorted(guess))} -> {result}")
 
-    won = len(solved_groups) == 4
-    return won, mistakes, solved_groups
+    return solved_groups, mistakes
+
+
+def play_one_shot(puzzle):
+    """Paper rules: the AI gives all 4 groups in one reply, no feedback.
+    Returns (list of solved groups, mistakes). Mistakes = groups it got wrong."""
+    words = [w for group in puzzle for w in group["words"]]
+    random.shuffle(words)
+
+    # Ask the AI. If its answer is broken, ask again (up to 3 times).
+    answer = None
+    for attempt in range(3):
+        try:
+            answer = ask_ai_one_shot(words)
+            break
+        except Exception as error:
+            print("   AI reply problem:", error)
+    if answer is None:
+        print("   AI couldn't give an answer. Counting this puzzle as 0.")
+        return [], 4
+
+    # Check each group the AI gave. A group only counts if all 4 words match exactly.
+    solved_groups = []
+    for guess, category in answer:
+        result, group = check_guess(puzzle, guess)
+        if result == "correct" and group in solved_groups:
+            result = "repeat"  # the AI listed the same group twice; it only counts once
+        elif result == "correct":
+            solved_groups.append(group)
+        print(f"   {result:>9}: {', '.join(guess)}   (AI thought: {category})")
+
+    return solved_groups, 4 - len(solved_groups)
 
 
 def main():
     puzzles = load_puzzles(start_date=START_DATE)[:NUM_PUZZLES]
-    print(f"Playing {len(puzzles)} puzzles from {START_DATE} on")
+    print(f"Mode: {MODE}. Playing {len(puzzles)} puzzles from {START_DATE} on.")
+
     wins = 0
+    total_groups = 0
+    total_weighted = 0
     total_mistakes = 0
     solved_by_color = [0, 0, 0, 0]
 
     for number, puzzle in enumerate(puzzles, start=1):
         print(f"\nPuzzle {number}")
-        won, mistakes, solved_groups = play(puzzle)
-        print("   WON" if won else "   LOST", f"with {mistakes} mistakes")
+        if MODE == "one_shot":
+            solved_groups, mistakes = play_one_shot(puzzle)
+        else:
+            solved_groups, mistakes = play_feedback(puzzle)
+
+        won = len(solved_groups) == 4
+        score = weighted_score(solved_groups)
+        print(f"   {'WON' if won else 'LOST'}: {len(solved_groups)}/4 groups, weighted score {score}/10")
 
         wins += won
+        total_groups += len(solved_groups)
+        total_weighted += score
         total_mistakes += mistakes
         for group in solved_groups:
             solved_by_color[group["level"]] += 1
 
     n = len(puzzles)
     print("\n===== Results =====")
-    print(f"Puzzles played: {n}")
-    print(f"Win rate:       {wins / n:.0%}")
-    print(f"Avg mistakes:   {total_mistakes / n:.1f}")
+    print(f"Mode:                 {MODE}")
+    print(f"Puzzles played:       {n}")
+    print(f"Fully solved:         {wins / n:.0%}")
+    print(f"Avg groups correct:   {total_groups / n:.2f} / 4")
+    print(f"Avg weighted score:   {total_weighted / n:.2f} / 10")
+    if MODE == "feedback":
+        print(f"Avg mistakes:         {total_mistakes / n:.1f}")
     for level, color in enumerate(COLORS):
         print(f"{color:>7} groups solved: {solved_by_color[level] / n:.0%}")
 
