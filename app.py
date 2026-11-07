@@ -65,10 +65,11 @@ if st.session_state.puzzles:
         if state["words_left"]:
             cols = st.columns(4)
             for i, word in enumerate(state["words_left"]):
-                cols[i % 4].markdown(
-                    f"<div style='padding:12px; border:1px solid #ccc; text-align:center; border-radius:6px; margin-bottom:8px; background-color: #f9f9f9;'><b>{word}</b></div>", 
-                    unsafe_allow_html=True
-                )
+                with cols[i % 4]:
+                    st.container(border=True).markdown(
+                        f"<div style='text-align:center;'><b>{word}</b></div>", 
+                        unsafe_allow_html=True
+                    )
         else:
             st.info("No words remaining on the board.")
             
