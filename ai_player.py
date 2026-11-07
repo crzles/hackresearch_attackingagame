@@ -13,7 +13,7 @@ client = OpenAI(
     base_url=os.environ.get("OPENAI_BASE_URL"),  # the school's server
     api_key=os.environ["OPENAI_API_KEY"],
 )
-MODEL = os.environ.get("MODEL", "gpt-5")
+MODEL = os.environ.get("MODEL", "gpt-6-luna")
 
 INSTRUCTIONS = """You are playing the word game Connections.
 The words form groups of 4 that share a hidden connection (a category, a phrase
