@@ -178,5 +178,185 @@
       { "category": "Sound descriptors", "words": ["Whisper", "Cadence", "Dissonance", "Decibel"], "level": 2 },
       { "category": "Physics of sound", "words": ["Acoustics", "Vibration", "Frequency", "Amplitude"], "level": 3 }
     ]
+  },
+  {
+    "id": "set-21",
+    "groups": [
+      { "category": "Footwear", "words": ["Boot", "Sandal", "Sneaker", "Slipper"], "level": 0 },
+      { "category": "Items in a bakery", "words": ["Bread", "Muffin", "Donut", "Croissant"], "level": 1 },
+      { "category": "Units of volume", "words": ["Pint", "Gallon", "Quart", "Ounce"], "level": 2 },
+      { "category": "Words before 'jack'", "words": ["Apple", "Cracker", "Flap", "Lumber"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-22",
+    "groups": [
+      { "category": "Kitchen appliances", "words": ["Toaster", "Blender", "Microwave", "Mixer"], "level": 0 },
+      { "category": "Types of shoes", "words": ["Loafer", "Pumps", "Mule", "Clog"], "level": 1 },
+      { "category": "Things with strings", "words": ["Guitar", "Kite", "Puppet", "Apron"], "level": 2 },
+      { "category": "Words after 'butter'", "words": ["Fly", "Cup", "Scotch", "Finger"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-23",
+    "groups": [
+      { "category": "Weather phenomena", "words": ["Rain", "Snow", "Hail", "Sleet"], "level": 0 },
+      { "category": "Pasta shapes", "words": ["Penne", "Fussili", "Farfalle", "Rigatoni"], "level": 1 },
+      { "category": "Things that stretch", "words": ["Rubber", "Elastic", "Taffy", "Muscle"], "level": 2 },
+      { "category": "Things associated with 'Ghost'", "words": ["Writer", "Town", "Ship", "Buster"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-24",
+    "groups": [
+      { "category": "Dog breeds", "words": ["Beagle", "Poodle", "Boxer", "Bulldog"], "level": 0 },
+      { "category": "Writing utensils", "words": ["Pen", "Pencil", "Marker", "Crayon"], "level": 1 },
+      { "category": "Things that spin", "words": ["Top", "Wheel", "Globe", "Record"], "level": 2 },
+      { "category": "Words associated with 'Cold'", "words": ["Shoulder", "Feet", "Turkey", "Cut"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-25",
+    "groups": [
+      { "category": "Breakfast foods", "words": ["Pancake", "Bacon", "Waffle", "Oatmeal"], "level": 0 },
+      { "category": "Card games", "words": ["Poker", "Bridge", "Hearts", "Solitaire"], "level": 1 },
+      { "category": "Things with keys", "words": ["Piano", "Map", "Typewriter", "Crypt"], "level": 2 },
+      { "category": "Synonyms for 'Exaggerate'", "words": ["Stretch", "Embellish", "Inflate", "Blow"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-26",
+    "groups": [
+      { "category": "Insects", "words": ["Ant", "Beetle", "Crab", "Bee"], "level": 0 },
+      { "category": "Coin denominations", "words": ["Penny", "Nickel", "Dime", "Quarter"], "level": 1 },
+      { "category": "Things that run", "words": ["Nose", "Engine", "Faucet", "Mascara"], "level": 2 },
+      { "category": "Words after 'Black'", "words": ["Board", "Bird", "Jack", "Out"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-27",
+    "groups": [
+      { "category": "Vegetables", "words": ["Carrot", "Potato", "Broccoli", "Spinach"], "level": 0 },
+      { "category": "Types of hat", "words": ["Beret", "Fedora", "Beanie", "Stetson"], "level": 1 },
+      { "category": "Things with shells", "words": ["Taco", "Egg", "Nut", "Clam"], "level": 2 },
+      { "category": "Words before 'paper'", "words": ["News", "Wall", "Sand", "Toilet"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-28",
+    "groups": [
+      { "category": "Solar system bodies", "words": ["Sun", "Moon", "Earth", "Comet"], "level": 0 },
+      { "category": "Fast food items", "words": ["Fries", "Burger", "Nugget", "Shake"], "level": 1 },
+      { "category": "Things that fold", "words": ["Origami", "Laundry", "Chair", "Poker"], "level": 2 },
+      { "category": "Things with a tongue", "words": ["Shoe", "Wagon", "Bell", "Flame"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-29",
+    "groups": [
+      { "category": "Camping gear", "words": ["Tent", "Lantern", "Tarp", "Stove"], "level": 0 },
+      { "category": "Cocktails", "words": ["Mojito", "Martini", "Marguerita", "Manhattan"], "level": 1 },
+      { "category": "Things that whistle", "words": ["Kettle", "Referee", "Train", "Wind"], "level": 2 },
+      { "category": "Homophones for numbers", "words": ["Won", "Too", "For", "Ate"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-30",
+    "groups": [
+      { "category": "Furniture", "words": ["Couch", "Table", "Bed", "Chair"], "level": 0 },
+      { "category": "Types of cheese", "words": ["Cheddar", "Swiss", "Gouda", "Brie"], "level": 1 },
+      { "category": "Things with teeth", "words": ["Comb", "Zipper", "Saw", "Gear"], "level": 2 },
+      { "category": "Words ending in 'berry'", "words": ["Straw", "Blue", "Black", "Rasp"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-31",
+    "groups": [
+      { "category": "Mammals", "words": ["Tiger", "Elephant", "Giraffe", "Zebra"], "level": 0 },
+      { "category": "Currencies", "words": ["Dollar", "Euro", "Yen", "Pound"], "level": 1 },
+      { "category": "Things that break", "words": ["Promise", "Record", "Heart", "Wave"], "level": 2 },
+      { "category": "Words following 'Fire'", "words": ["Fly", "Works", "Fighter", "Truck"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-32",
+    "groups": [
+      { "category": "Types of dance", "words": ["Salsa", "Tango", "Waltz", "Ballet"], "level": 0 },
+      { "category": "Coffee drinks", "words": ["Latte", "Espresso", "Mocha", "Americano"], "level": 1 },
+      { "category": "Things that fly without wings", "words": ["Time", "Rumor", "Spark", "Kite"], "level": 2 },
+      { "category": "Words after 'Sweet'", "words": ["Heart", "Tooth", "Bread", "Pea"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-33",
+    "groups": [
+      { "category": "School supplies", "words": ["Ruler", "Eraser", "Glue", "Binder"], "level": 0 },
+      { "category": "Types of soup", "words": ["Bisque", "Chowder", "Gumbo", "Minestrone"], "level": 1 },
+      { "category": "Things with hands", "words": ["Clock", "Watch", "Dealer", "Clockwork"], "level": 2 },
+      { "category": "Ananagrams of body parts", "words": ["Glow", "Ear", "Palm", "Chin"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-34",
+    "groups": [
+      { "category": "Sanitation items", "words": ["Soap", "Sponge", "Towel", "Bleach"], "level": 0 },
+      { "category": "Precious metals", "words": ["Gold", "Silver", "Platinum", "Bronze"], "level": 1 },
+      { "category": "Things that tick", "words": ["Clock", "Bomb", "Insect", "Heart"], "level": 2 },
+      { "category": "Words after 'Cross'", "words": ["Bow", "Walk", "Word", "Road"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-35",
+    "groups": [
+      { "category": "Vehicles", "words": ["Car", "Bus", "Bicycle", "Train"], "level": 0 },
+      { "category": "Sandwiches", "words": ["Sub", "Club", "Wrap", "Panini"], "level": 1 },
+      { "category": "Things with spines", "words": ["Cactus", "Hedgehog", "Book", "Skeleton"], "level": 2 },
+      { "category": "Words before 'board'", "words": ["Key", "Surf", "Dash", "Skate"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-36",
+    "groups": [
+      { "category": "Seafood", "words": ["Shrimp", "Lobster", "Crab", "Oyster"], "level": 0 },
+      { "category": "Olympic events", "words": ["Vault", "Sprint", "Archery", "Fencing"], "level": 1 },
+      { "category": "Things that roll", "words": ["Dice", "Thunder", "Drum", "Coin"], "level": 2 },
+      { "category": "Words before 'bird'", "words": ["Humming", "Lady", "Mocking", "Black"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-37",
+    "groups": [
+      { "category": "Jewelry items", "words": ["Ring", "Necklace", "Bracelet", "Earring"], "level": 0 },
+      { "category": "Types of tea", "words": ["Matcha", "Chai", "Oolong", "Earl Grey"], "level": 1 },
+      { "category": "Things with legs", "words": ["Table", "Tripod", "Journey", "Compass"], "level": 2 },
+      { "category": "Words before 'stone'", "words": ["Corner", "Gem", "Mile", "Tomb"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-38",
+    "groups": [
+      { "category": "Genres of film", "words": ["Horror", "Comedy", "Drama", "Action"], "level": 0 },
+      { "category": "Types of pasta sauce", "words": ["Pesto", "Marinara", "Alfredo", "Bolognese"], "level": 1 },
+      { "category": "Things that run out", "words": ["Time", "Battery", "Patience", "Fuel"], "level": 2 },
+      { "category": "Words starting with Greek letters", "words": ["Alphabet", "Beta", "Delta", "Gamma"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-39",
+    "groups": [
+      { "category": "Kitchen tools", "words": ["Ladle", "Spatula", "Whisk", "Peeler"], "level": 0 },
+      { "category": "Types of cloud", "words": ["Cumulus", "Stratus", "Cirrus", "Nimbus"], "level": 1 },
+      { "category": "Things with leaves", "words": ["Tree", "Tea", "Table", "Book"], "level": 2 },
+      { "category": "Words after 'High'", "words": ["Way", "Light", "Noon", "School"], "level": 3 }
+    ]
+  },
+  {
+    "id": "set-40",
+    "groups": [
+      { "category": "Winter clothing", "words": ["Coat", "Scarf", "Gloves", "Earmuffs"], "level": 0 },
+      { "category": "Kinds of nuts", "words": ["Almond", "Walnut", "Cashew", "Pecan"], "level": 1 },
+      { "category": "Things with rings", "words": ["Saturn", "Tree", "Phone", "Target"], "level": 2 },
+      { "category": "Words before 'house'", "words": ["Light", "Green", "Dog", "Full"], "level": 3 }
+    ]
   }
 ]
