@@ -48,17 +48,18 @@ def ask_ai(words_left, solved, past_guesses, mistakes_left):
 
 
 ONE_SHOT_INSTRUCTIONS = """You are playing the word game Connections.
-The 16 words form exactly 4 groups of 4 that share a hidden connection (a category,
-a phrase like "___ ball", a hidden word, a sound-alike, etc.). Some words are red herrings.
-You get ONE try and no feedback: give all 4 groups at once. Use every word exactly once.
+The 16 words form exactly 4 groups of 4 that share a hidden connection (a category, a phrase like "___ ball", a hidden word, a sound-alike, etc.). Some words are red herrings.
 
-Reply with ONLY JSON, like this:
-{"groups": [
-  {"category": "TYPES OF FISH", "words": ["BASS", "SOLE", "PERCH", "CARP"]},
-  {"category": "...", "words": ["...", "...", "...", "..."]},
-  {"category": "...", "words": ["...", "...", "...", "..."]},
-  {"category": "...", "words": ["...", "...", "...", "..."]}
-]}"""
+First, write a step-by-step breakdown analyzing potential categories, testing for overlapping words, and isolating red herrings.
+Then, provide your final answer as valid JSON in this exact format:
+{
+  "groups": [
+    {"category": "TYPES OF FISH", "words": ["BASS", "SOLE", "PERCH", "CARP"]},
+    {"category": "...", "words": ["...", "...", "...", "..."]},
+    {"category": "...", "words": ["...", "...", "...", "..."]},
+    {"category": "...", "words": ["...", "...", "...", "..."]}
+  ]
+}"""
 
 
 def ask_ai_one_shot(words):
