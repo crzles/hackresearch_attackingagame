@@ -146,10 +146,10 @@
   {
     "id": "set-17",
     "groups": [
-      { "category": "Common spices", "words": ["Cardamom", "Clove", "Allspice", "Coriander"], "level": 0 },
-      { "category": "Unique aromatics / seeds", "words": ["Anise", "Star Anise", "Fennel", "Nigella"], "level": 1 },
-      { "category": "Earthy / root spices", "words": ["Galangal", "Sumac", "Fenugreek", "Asafoetida"], "level": 2 },
-      { "category": "Powdered / resinous flavorings", "words": ["Safflower", "Mace", "Tamarind", "Paprika"], "level": 3 }
+      { "category": "Pirates Plunder", "words": ["Booty", "Bounty", "Spoils", "Treasure"], "level": 0 },
+      { "category": "Kinds of Shirts", "words": ["Henley", "Polo", "Raglan", "Ringer"], "level": 1 },
+      { "category": "First Words of U.S. States", "words": ["New", "North", "South", "Rhode"], "level": 2 },
+      { "category": "Ends of Storm Types", "words": ["Cane", "Clone", "Easter", "Soon"], "level": 3 }
     ]
   },
   {
