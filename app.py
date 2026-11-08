@@ -199,6 +199,8 @@ if st.session_state.puzzles:
                             
                             for guess, category in answer:
                                 res, grp = check_guess(puzzle_groups, guess)
+                                if grp and "category" in grp and "name" not in grp:
+                                    grp["name"] = grp["category"]
                                 if res == "correct" and grp in solved_groups:
                                     res = "repeat"
                                     status = "wrong"

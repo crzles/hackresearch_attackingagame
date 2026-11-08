@@ -59,8 +59,10 @@ def check_guess(puzzle, guess):
 
     Returns ("correct", group), ("one away", None), or ("wrong", None).
     """
+    guess_upper = {w.strip().upper() for w in guess}
     for group in puzzle:
-        matches = len(set(guess) & set(group["words"]))
+        group_upper = {w.strip().upper() for w in group["words"]}
+        matches = len(guess_upper & group_upper)
         if matches == 4:
             return "correct", group
         if matches == 3:
