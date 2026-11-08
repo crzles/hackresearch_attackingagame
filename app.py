@@ -27,7 +27,7 @@ with st.sidebar:
     
     puzzle_path = ""
     if puzzle_source == "Self-Made Puzzles (JSON)":
-        puzzle_path = st.text_input("Path to custom JSON file", value="my_puzzles.json")
+        puzzle_path = st.text_input("Path to custom JSON file", value="connections_word_sets.json")
     
     game_mode = st.selectbox(
         "Game Mode",
