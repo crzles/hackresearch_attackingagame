@@ -51,7 +51,7 @@ ONE_SHOT_INSTRUCTIONS = """You are playing the word game Connections.
 The 16 words form exactly 4 groups of 4 that share a hidden connection (a category, a phrase like "___ ball", a hidden word, a sound-alike, etc.). Some words are red herrings.
 
 First, write a step-by-step breakdown analyzing potential categories, testing for overlapping words, and isolating red herrings. Explicitly identify overlapping words and solve for the most restrictive or niche categories first, leaving broader semantic groups for last.
-Then, provide your final answer as valid JSON in this exact format:
+Then, provide your final answer as valid JSON in this exact format. You must use every single input word exactly once, keeping the original spelling:
 {
   "groups": [
     {"category": "TYPES OF FISH", "words": ["BASS", "SOLE", "PERCH", "CARP"]},

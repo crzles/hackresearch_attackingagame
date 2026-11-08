@@ -67,8 +67,8 @@
     "groups": [
       { "category": "Herbs", "words": ["Mint", "Sage", "Basil", "Thyme"], "level": 0 },
       { "category": "Face cards", "words": ["Ace", "Queen", "King", "Jack"], "level": 1 },
-      { "category": "Underground pathways", "words": ["Tunnel", "Road", "Bolt", "Highway"], "level": 2 },
-      { "category": "Things that are flash/lightning related", "words": ["Flash", "Thunder", "Bridge", "Strike"], "level": 3 }
+      { "category": "Underground pathways", "words": ["Tunnel", "Road", "Bridge", "Highway"], "level": 2 },
+      { "category": "Things that are flash/lightning related", "words": ["Flash", "Thunder", "Bolt", "Strike"], "level": 3 }
     ]
   },
   {
