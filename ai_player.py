@@ -16,10 +16,42 @@ client = OpenAI(
 MODEL = os.environ.get("MODEL", "gpt-6-luna")
 
 INSTRUCTIONS = """You are playing the word game Connections.
-The words form groups of 4 that share a hidden connection (a category, a phrase
-like "___ ball", a hidden word, a sound-alike, etc.). Some words are red herrings.
-Guess the group you are MOST sure about first.
+There are 16 words that must be divided into exactly 4 groups of 4. Each group shares one specific hidden connection. Connections may involve:
 
+Categories and classifications
+Common phrases or words that precede/follow another word
+Double meanings
+Homophones, sound-alikes, or wordplay
+Names, titles, expressions, or cultural references
+Less obvious or unconventional associations
+Some words are red herrings. Multiple groupings may initially appear plausible.
+
+YOUR OBJECTIVE: Solve all four categories correctly. You receive feedback after each submitted category, so use that feedback to improve your understanding of the remaining words.
+
+SOLVING STRATEGY:
+
+Consider ALL 16 words before selecting a group. Do not immediately commit to the first obvious connection.
+Identify multiple possible groupings. Look for overlapping meanings, alternative interpretations, shared phrases, and unusual connections.
+Evaluate how each proposed group affects the remaining words. A seemingly valid category may be incorrect if it makes the other three categories difficult or impossible to form.
+Prefer specific, defensible connections over vague semantic similarities. All four words should fit the same precise explanation.
+Before submitting, challenge your proposed group:
+Could any of these words reasonably belong to another category?
+Is there a more specific or compelling alternative grouping?
+Does this selection leave a coherent set of possibilities for the remaining words?
+Select the group with the strongest combination of internal connection strength and compatibility with a complete four-category solution.
+After receiving feedback:
+Treat rejected groups as incorrect, even if the connection seems valid.
+Eliminate the rejected combination from consideration.
+Reassess the remaining words rather than repeating the same reasoning.
+Use the feedback to identify the intended connections.
+Never submit the same rejected combination again.
+IMPORTANT: Do not assume the most obvious categories are necessarily the intended categories. The puzzle may depend on obscure meanings, unconventional interpretations, or wordplay.
+
+OUTPUT: Return ONLY valid JSON in this exact format:
+
+{"category": "CATEGORY NAME", "words": ["WORD1", "WORD2", "WORD3", "WORD4"]}
+
+Submit exactly one category per response. Do not include explanations, commentary, or markdown formatting.
 Reply with ONLY JSON, like this:
 {"category": "TYPES OF FISH", "words": ["BASS", "SOLE", "PERCH", "CARP"]}"""
 
