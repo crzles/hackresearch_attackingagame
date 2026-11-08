@@ -164,10 +164,10 @@
   {
     "id": "set-19",
     "groups": [
-      { "category": "Above-ground burial structures", "words": ["Mausoleum", "Cenotaph", "Tombstone", "Cairn"], "level": 0 },
-      { "category": "Underground burial sites", "words": ["Crypt", "Catacomb", "Sepulcher", "Necropolis"], "level": 1 },
-      { "category": "Memorial containers", "words": ["Urn", "Reliquary", "Coffin", "Ossuary"], "level": 2 },
-      { "category": "Death-related monuments/records", "words": ["Sarcophagus", "Obituary", "Epitaph", "Catafalque"], "level": 3 }
+      { "category": "Composition", "words": ["Constitution", "Fabric", "Makeup", "Structure"], "level": 0 },
+      { "category": "Kinds of Trucks", "words": ["Flatbed", "Pickup", "Semi", "Tanker"], "level": 1 },
+      { "category": "Copy", "words": ["Backup", "Extra", "Replacement", "Spare"], "level": 2 },
+      { "category": "Ending in Parts of the Eye", "words": ["Hot Rod", "Osiris", "Traffic Cone", "Woolens"], "level": 3 }
     ]
   },
   {
